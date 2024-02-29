@@ -1,0 +1,255 @@
+<html>
+  <head>
+    <title>Image Compressor / Editor</title>
+    <style>
+      :root {
+        --blue: #5680e9;
+        --lightestblue: #84ceeb;
+        --lightblue: #5ab9ea;
+        --pale: #c1c8e4;
+        --purple: #8860d0;
+        --secondary: #6b3ac3;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        max-width: 1200px;
+        margin: 20px;
+        font-family: system-ui;
+        display: flex;
+        justify-content: center;
+        padding: 0;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      h1 {
+        margin: 10px auto;
+      }
+      p {
+        font-size: small;
+        color: rgb(74, 65, 65);
+      }
+      .formContent {
+        display: flex;
+        flex-direction: column;
+      }
+      .formContent > *,
+      #advancedOptionsContainer > * {
+        margin-bottom: 1rem;
+      }
+      .formContainer {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin: 10px 1rem;
+      }
+      .grid {
+        display: grid;
+        gap: 0.5rem;
+      }
+      label {
+        font-size: small;
+        display: inline-block;
+        margin-right: 10px;
+      }
+      input {
+        font-size: medium;
+        padding: 10px;
+        border: 0;
+        border-bottom: 2px solid var(--purple);
+        background-color: transparent;
+      }
+      input:focus {
+        outline: var(--purple);
+      }
+      .button {
+        width: 100%;
+        appearance: none;
+        -webkit-appearance: none;
+        padding: 10px;
+        border: none;
+        background-color: var(--purple);
+        color: #fff;
+        font-weight: 600;
+        transition: all 0.3s ease-in;
+        box-shadow: 2px 2px 5px var(--purple);
+      }
+      .advanced {
+        width: 100%;
+        appearance: none;
+        -webkit-appearance: none;
+        padding: 5px 10px;
+        border: none;
+        background-color: transparent;
+        color: var(--secondary);
+        text-decoration: underline;
+      }
+      .invisible {
+        display: none;
+      }
+      .visible {
+        display: flex;
+        flex-direction: column;
+      }
+      .uploadButton {
+        border: 2px solid var(--purple);
+        color: var(--purple);
+        padding: 5px 10px;
+        cursor: pointer;
+        transition: all 0.1s ease;
+      }
+      .uploadButton:hover {
+        background-color: var(--purple);
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+      <h1>Image Editor/Compressor</h1>
+      <p>Enter information to edit and compress your image</p>
+      <div class="grid">
+        <button type="button" class="advanced" id="showAdvanced">
+          Show advanced options
+        </button>
+      </div>
+      <br />
+      <div class="formContainer">
+        <div class="formContent">
+          <div class="">
+            <input
+              id="actual-btn"
+              type="file"
+              name="image"
+              accept="image/*"
+              required
+            />
+          </div>
+          <div class="grid">
+            <label>Size</label>
+            <input
+              placeholder="width"
+              type="number"
+              value="100"
+              min="1"
+              max="1000"
+              name="width"
+            />
+            <span>x</span>
+            <input
+              placeholder="height"
+              type="number"
+              value="100"
+              min="1"
+              max="1000"
+              name="height"
+            />
+          </div>
+          <div class="grid">
+            <label for="option1"
+              ><input
+                type="radio"
+                id="option1"
+                name="choice"
+                value="JPEG"
+                checked
+              />JPEG</label
+            >
+            <label for="option2">
+              <input
+                type="radio"
+                id="option2"
+                name="choice"
+                value="PNG"
+              />PNG</label
+            >
+          </div>
+        </div>
+        <div class="formContent">
+          <div id="advancedOptionsContainer" class="invisible">
+            <div class="grid">
+              <label>Sharpnesss value (number)</label>
+              <input
+                type="number"
+                name="sharpness"
+                value="0"
+                min="0"
+                max="100"
+              />
+            </div>
+            <div class="grid">
+              <label>Blur</label>
+              <input type="number" name="blur" value="0" min="0" max="100" />
+            </div>
+            <div class="grid">
+              <label>Gamma Correction (1 is default, 0.0 - 3.0 range)</label>
+              <input
+                type="number"
+                name="gamma"
+                value="1"
+                min="0"
+                max="3"
+                step="0.1"
+              />
+            </div>
+            <div class="grid">
+              <label>Contrast (-100 to 100)</label>
+              <input
+                type="number"
+                name="contrast"
+                value="0"
+                min="-100"
+                max="100"
+                step="1"
+              />
+            </div>
+            <div class="grid">
+              <label>Brightness (-100 to 100)</label>
+              <input
+                type="number"
+                name="brightness"
+                value="0"
+                min="-100"
+                max="100"
+                step="1"
+              />
+            </div>
+            <div class="grid">
+              <label>Saturation (-100 to 100)</label>
+              <input
+                type="number"
+                name="saturation"
+                value="0"
+                min="-100"
+                max="100"
+                step="1"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="button">Confirm</button>
+      <br />
+    </form>
+    <script type="text/javascript">
+      let b = document.getElementById("showAdvanced");
+      b.addEventListener("click", () => {
+        let optionsContainer = document.getElementById(
+          "advancedOptionsContainer"
+        );
+        optionsContainer.classList.toggle("invisible");
+        optionsContainer.classList.toggle("visible");
+        if (optionsContainer.classList.contains("invisible")) {
+          b.innerText = "Show Advanced Options";
+        } else {
+          b.innerText = "Hide Advanced Options";
+        }
+      });
+    </script>
+  </body>
+</html>
