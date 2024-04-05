@@ -10,9 +10,6 @@
         --purple: #8860d0;
         --secondary: #6b3ac3;
       }
-      * {
-        box-sizing: border-box;
-      }
       body {
         max-width: 1200px;
         margin: 20px;
@@ -26,20 +23,11 @@
         flex-direction: column;
         align-items: center;
       }
-      h1 {
-        margin: 10px auto;
-      }
       p {
         font-size: small;
-        color: rgb(74, 65, 65);
       }
       .formContent {
-        display: flex;
-        flex-direction: column;
-      }
-      .formContent > *,
-      #advancedOptionsContainer > * {
-        margin-bottom: 1rem;
+        display: grid;
       }
       .formContainer {
         display: flex;
@@ -54,7 +42,6 @@
       }
       label {
         font-size: small;
-        display: inline-block;
         margin-right: 10px;
       }
       input {
@@ -69,43 +56,30 @@
       }
       .button {
         width: 100%;
-        appearance: none;
-        -webkit-appearance: none;
         padding: 10px;
         border: none;
         background-color: var(--purple);
         color: #fff;
         font-weight: 600;
-        transition: all 0.3s ease-in;
-        box-shadow: 2px 2px 5px var(--purple);
       }
       .advanced {
         width: 100%;
-        appearance: none;
-        -webkit-appearance: none;
         padding: 5px 10px;
         border: none;
         background-color: transparent;
         color: var(--secondary);
-        text-decoration: underline;
       }
       .invisible {
         display: none;
       }
       .visible {
-        display: flex;
-        flex-direction: column;
+        display: grid;
       }
       .uploadButton {
         border: 2px solid var(--purple);
         color: var(--purple);
         padding: 5px 10px;
         cursor: pointer;
-        transition: all 0.1s ease;
-      }
-      .uploadButton:hover {
-        background-color: var(--purple);
-        color: white;
       }
     </style>
   </head>
@@ -121,14 +95,8 @@
       <br />
       <div class="formContainer">
         <div class="formContent">
-          <div class="">
-            <input
-              id="actual-btn"
-              type="file"
-              name="image"
-              accept="image/*"
-              required
-            />
+          <div>
+            <input id="actual-btn" type="file" accept="image/*" required />
           </div>
           <div class="grid">
             <label>Size</label>
