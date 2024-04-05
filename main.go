@@ -103,21 +103,33 @@ func processImage(imgData []byte, width int, height int, sharpness float64, blur
 	processedImage := Resize(srcImage, width, height)
 	if sharpness > 0 {
 		processedImage = Sharpen(processedImage, sharpness)
+	} else {
+		println("sharpness is 0 or less than 0. No change to sharpness made.")
 	}
 	if blur > 0 {
 		processedImage = Blur(processedImage, blur)
+	} else {
+		println("blur is 0 or less than 0. No change to blur made.")
 	}
 	if gamma != 1 {
 		processedImage = GammaCorrection(processedImage, gamma)
+	} else {
+		println("gamma is 1. No change to gamma made.")
 	}
 	if contrast != 0 {
 		processedImage = Contrast(processedImage, contrast)
+	} else {
+		println("contrast is 0 or less than 0. No change to contrast made.")
 	}
 	if brightness != 0 {
 		processedImage = Brightness(processedImage, brightness)
+	} else {
+		println("brightness is 0 or less than 0. No change to brightness made.")
 	}
 	if saturation != 0 {
 		processedImage = Saturation(processedImage, saturation)
+	} else {
+		println("saturation is 0 or less than 0. No change to saturation made.")
 	}
 
 	var buf bytes.Buffer
@@ -149,7 +161,6 @@ func main() {
 	}
 	log.Printf("Server listening on http://%s", port)
 	log.Fatal(http.ListenAndServe(port, nil))
-	// log.Fatal(http.ListenAndServe("0.0.0.0:"+port, nil))
 }
 
 func Resize(srcImage image.Image, width int, height int) image.Image {
