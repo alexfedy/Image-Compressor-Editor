@@ -164,7 +164,7 @@ func mainIndexHandler(w http.ResponseWriter, r *http.Request) {
               type="number"
               value="100"
               min="1"
-              max="1000"
+              max="2000"
               name="width"
             />
             <span>x</span>
@@ -173,7 +173,7 @@ func mainIndexHandler(w http.ResponseWriter, r *http.Request) {
               type="number"
               value="100"
               min="1"
-              max="1000"
+              max="2000"
               name="height"
             />
           </div>
